@@ -19,6 +19,8 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 
+gem 'pg', '~> 0.18.3'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -29,8 +31,9 @@ gem 'jbuilder', '~> 2.0'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'rspec-rails', '2.13.1'
+  gem 'test-unit'
+  gem 'byebug'
 end
 
 group :test do
@@ -43,6 +46,5 @@ group :doc do
 end
 
 group :production do
-  gem 'pg', '0.15.1'
   gem 'rails_12factor', '0.0.2'
 end
