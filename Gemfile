@@ -31,14 +31,17 @@ gem 'pg', '~> 0.18.3'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'rspec-rails', '2.13.1'
-  gem 'test-unit'
-  gem 'byebug'
-end
-
-group :test do
-  gem 'selenium-webdriver', '2.35.1'
-  gem 'capybara', '2.1.0'
+	gem 'test-unit'
+	gem 'rspec-rails', '~> 3.4'
+	gem 'byebug'
+	gem 'guard', '~> 2.13'
+	gem 'guard-rspec', '~> 4.6', '>= 4.6.4'
+	gem 'spork', github: 'sporkrb/spork'
+	gem 'spork-rails', '~> 4.0'
+	gem 'guard-spork', '~> 2.1'
+	gem 'childprocess', '~> 0.5.8'
+	gem 'selenium-webdriver', '~> 2.48', '>= 2.48.1'
+  	gem 'capybara', '~> 2.5'
 end
 
 group :doc do
