@@ -25,3 +25,4 @@ doc/
 .DS_Store
 .idea
 .secret
+.byebug_history
