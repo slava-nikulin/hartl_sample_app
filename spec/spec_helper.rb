@@ -6,7 +6,8 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
-
+  require 'capybara/rspec'
+  require 'capybara/rails'
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -17,6 +18,8 @@ Spork.prefork do
 
   RSpec.configure do |config|
     config.include Rails.application.routes.url_helpers
+
+    config.include Capybara::DSL
     # ## Mock Framework
     #
     # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -43,8 +46,7 @@ Spork.prefork do
     # the seed, which is printed after each run.
     #     --seed 1234
     config.order = "random"
-    # Include the Capybara DSL so that specs in spec/requests still work.
-    config.include Capybara::DSL
+
     # Disable the old-style object.should syntax.
     config.expect_with :rspec do |c|
       c.syntax = :expect

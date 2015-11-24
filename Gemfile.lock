@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/guard/guard-rspec.git
+  revision: 7719bee90569217a4eee30f85fd293c9a721733f
+  specs:
+    guard-rspec (4.6.4)
+      guard (~> 2.1)
+      guard-compat (~> 1.1)
+      rspec (>= 2.99.0, < 4.0)
+
+GIT
   remote: git://github.com/sporkrb/spork.git
   revision: 224df492657e617a0c93c0319e78f0eefee5b636
   specs:
@@ -43,7 +52,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.3)
-    autoprefixer-rails (6.1.0.1)
+    autoprefixer-rails (6.1.1)
       execjs
       json
     bootstrap-sass (3.3.5.1)
@@ -84,10 +93,6 @@ GEM
       shellany (~> 0.0)
       thor (>= 0.18.1)
     guard-compat (1.2.1)
-    guard-rspec (4.6.4)
-      guard (~> 2.1)
-      guard-compat (~> 1.1)
-      rspec (>= 2.99.0, < 4.0)
     guard-spork (2.1.0)
       childprocess (>= 0.2.3)
       guard (~> 2.0)
@@ -102,7 +107,7 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
-    listen (3.0.4)
+    listen (3.0.5)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     loofah (2.0.3)
@@ -111,12 +116,12 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
-    mime-types (2.6.2)
+    mime-types (2.99)
     mini_portile (0.6.2)
-    minitest (5.8.2)
+    minitest (5.8.3)
     multi_json (1.11.2)
     nenv (0.2.0)
-    nokogiri (1.6.6.3)
+    nokogiri (1.6.6.4)
       mini_portile (~> 0.6.0)
     notiffany (0.0.8)
       nenv (~> 0.1)
@@ -169,7 +174,7 @@ GEM
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
       rspec-mocks (~> 3.4.0)
-    rspec-core (3.4.0)
+    rspec-core (3.4.1)
       rspec-support (~> 3.4.0)
     rspec-expectations (3.4.0)
       diff-lcs (>= 1.2.0, < 2.0)
@@ -185,7 +190,7 @@ GEM
       rspec-expectations (~> 3.4.0)
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
-    rspec-support (3.4.0)
+    rspec-support (3.4.1)
     rubyzip (1.1.7)
     sass (3.4.19)
     sass-rails (5.0.4)
@@ -239,7 +244,7 @@ DEPENDENCIES
   childprocess (~> 0.5.8)
   coffee-rails (~> 4.1.0)
   guard (~> 2.13)
-  guard-rspec (~> 4.6, >= 4.6.4)
+  guard-rspec!
   guard-spork (~> 2.1)
   jbuilder (~> 2.0)
   jquery-rails
