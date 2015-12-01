@@ -22,7 +22,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'pg', '~> 0.18.3'
 
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.5.1'
-
+gem 'bcrypt-ruby', '~> 3.1', '>= 3.1.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
