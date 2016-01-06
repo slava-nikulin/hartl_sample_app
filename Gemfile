@@ -46,6 +46,10 @@ group :development, :test do
   	gem 'capybara', '~> 2.5'
 end
 
+group :test do
+  gem 'factory_girl_rails', '~> 4.5'
+end
+
 group :doc do
   gem 'sdoc', '0.3.20', require: false
 end
