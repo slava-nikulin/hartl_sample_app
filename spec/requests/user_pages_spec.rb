@@ -1,4 +1,5 @@
-require 'spec_helper'
+require 'rails_helper'
+include ApplicationHelper
 
 describe "User pages" do
 
@@ -7,8 +8,8 @@ describe "User pages" do
 	describe "signup page" do
 		before { visit signup_path }
 
-		it { should have_selector('h1','Sign up') }
-		it { should have_title(full_title('Sign up')) }
+		it { is_expected.to have_selector('h1','Sign up') }
+		it { is_expected.to have_title(full_title('Sign up')) }
 
 		let(:submit) { "Create my account" }
 
@@ -19,9 +20,9 @@ describe "User pages" do
 			describe "after submission" do
 				before { click_button submit }
 
-				it { should have_title('Sign up') }
-				it { should have_content('error') }
-				it { should have_selector('div.alert.alert-danger') }
+				it { is_expected.to have_title('Sign up') }
+				it { is_expected.to have_content('error') }
+				it { is_expected.to have_selector('div.alert.alert-danger') }
 			end
 		end
 
@@ -41,6 +42,15 @@ describe "User pages" do
 				before { click_button submit }
 				let(:user) { User.find_by(email: 'user@example.com') }
 
+				it { is_expected.to have_title(user.name) }
+				it { is_expected.to have_selector('div.alert.alert-success', text: 'Welcome') }
+			end
+
+			describe "after saving the user" do
+				before { click_button submit }
+				let(:user) { User.find_by(email: 'user@example.com') }
+
+				it { should have_link('Sign out') }
 				it { should have_title(user.name) }
 				it { should have_selector('div.alert.alert-success', text: 'Welcome') }
 			end
@@ -52,8 +62,8 @@ describe "User pages" do
 		let(:user) { FactoryGirl.create(:user) }
 		before { visit user_path(user) }
 
-		it { should have_content(user.name) }
-		it { should have_title(user.name) }
+		it { is_expected.to have_content(user.name) }
+		it { is_expected.to have_title(user.name) }
 	end
 
 
