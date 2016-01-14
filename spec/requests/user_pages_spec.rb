@@ -57,6 +57,8 @@ describe "User pages" do
 		end
 	end
 
+
+
 	describe "signup page" do
 		before { visit signup_path }
 
@@ -78,8 +80,8 @@ describe "User pages" do
 		end
 
 		describe "with valid information" do
-			let(:new_user) { FactoryGirl.build(:new_user) }
-			before { valid_signup(new_user)	}
+			let(:new_user) { FactoryGirl.build(:user) }
+			before { signup(new_user)	}
 
 			it "should create a user" do
 				expect { click_button submit }.to change(User, :count).by(1)
@@ -146,5 +148,17 @@ describe "User pages" do
 			specify { expect(user.reload.name).to  eq new_name }
 			specify { expect(user.reload.email).to eq new_email }
 		end
+
+		describe "forbidden attributes" do
+			let(:params) do
+				{ user: { admin: true, password: user.password,
+					password_confirmation: user.password } }
+				end
+				before do
+					sign_in user, no_capybara: true
+					patch user_path(user), params
+				end
+				specify { expect(user.reload).not_to be_admin }
+			end
+		end
 	end
-end

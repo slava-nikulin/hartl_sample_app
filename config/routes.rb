@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   match '/contact', to: 'static_pages#contact', via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
-
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
