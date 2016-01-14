@@ -23,6 +23,7 @@ gem 'pg', '~> 0.18.3'
 
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.5.1'
 gem 'bcrypt-ruby', '~> 3.1', '>= 3.1.5'
+gem 'faker', '~> 1.6', '>= 1.6.1'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -31,6 +32,9 @@ gem 'bcrypt-ruby', '~> 3.1', '>= 3.1.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+gem 'will_paginate', '~> 3.1'
+gem 'bootstrap-will_paginate', '~> 0.0.10'
 
 group :development, :test do
 	gem 'test-unit'
@@ -43,19 +47,19 @@ group :development, :test do
 	gem 'guard-spork', '~> 2.1'
 	gem 'childprocess', '~> 0.5.8'
 	gem 'selenium-webdriver', '~> 2.48', '>= 2.48.1'
-  	gem 'capybara', '~> 2.5'
+	gem 'capybara', '~> 2.5'
 end
 
 group :test do
-  gem 'factory_girl_rails', '~> 4.5'
-  gem 'cucumber-rails', '~> 1.4', '>= 1.4.2'
-  gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
+	gem 'factory_girl_rails', '~> 4.5'
+	gem 'cucumber-rails', '~> 1.4', '>= 1.4.2'
+	gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
 end
 
 group :doc do
-  gem 'sdoc', '0.3.20', require: false
+	gem 'sdoc', '0.3.20', require: false
 end
 
 group :production do
-  gem 'rails_12factor', '0.0.2'
+	gem 'rails_12factor', '0.0.2'
 end
