@@ -68,7 +68,6 @@ describe "Authentication" do
 				describe "when signing in again" do
 					before do
 						click_link "Sign out"
-						visit signin_path
 						sign_in user
 					end
 
@@ -111,13 +110,14 @@ describe "Authentication" do
 				before { patch user_path(wrong_user) }
 				specify { expect(response).to redirect_to(root_url) }
 			end
+
 		end
 
 		describe "as non-admin user" do
 			let(:user) { FactoryGirl.create(:user) }
 			let(:non_admin) { FactoryGirl.create(:user) }
 
-			before { sign_in non_admin, no_capybara: true }
+			before { sign_in non_admin, no_capybara: true}
 
 			describe "submitting a DELETE request to the Users#destroy action" do
 				before { delete user_path(user) }
@@ -128,7 +128,7 @@ describe "Authentication" do
 		describe "as signed in user" do
 			let(:user) { FactoryGirl.create(:user) }
 			let(:new_user) { FactoryGirl.create(:user, email: "verynew@user.com") }
-			before { sign_in user, no_capybara: true }
+			before { sign_in user, no_capybara: true}
 
 			describe "accessing to user creation page" do
 				before { get new_user_path }
@@ -144,12 +144,44 @@ describe "Authentication" do
 
 		describe "as admin" do
 			let(:admin) { FactoryGirl.create(:admin) }
-			before { 
-				visit signin_path
-				sign_in admin
-			}
+			before { sign_in admin }
 
 			it { expect { delete user_path(admin) }.not_to change(User, :count) }
+		end
+	end
+
+	describe "account activation" do
+		let(:new_user) { FactoryGirl.build(:user) }
+		before { 
+			ActionMailer::Base.deliveries.clear
+			sign_up new_user, no_capybara: true 
+		}
+		context "when account was not activated" do
+			it { ActionMailer::Base.deliveries.size.should eq(1)}
+			it { assigns(:user).should_not be_activated }
+		end
+
+		describe "signing in" do
+			before{ sign_in new_user}
+			it { should have_link "Sign in" }
+		end
+
+		describe "With invalid activation token" do
+			before{ visit edit_account_activation_path("invalid token")}
+			it { should have_error_message('Invalid') }
+		end
+
+		describe "With valid activation token and invalid email" do
+			before { visit edit_account_activation_path(assigns(:user).activation_token, email: 'wrong') }
+			it { should have_error_message('Invalid') }
+		end
+
+		describe "With valid activation token and valid email" do
+			let(:user) { assigns(:user) }
+			before { get edit_account_activation_path(user.activation_token, email: user.email) }
+			it { user.reload.should be_activated }
+			specify { expect(response).to redirect_to(user) }
+			specify { expect(response.body).not_to match("Sign out") }
 		end
 	end
 end

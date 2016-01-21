@@ -57,9 +57,7 @@ describe "User pages" do
 		end
 	end
 
-
-
-	describe "signup page" do
+	describe "sign_up page" do
 		before { visit signup_path }
 
 		it { is_expected.to have_selector('h1','Sign up') }
@@ -81,25 +79,15 @@ describe "User pages" do
 
 		describe "with valid information" do
 			let(:new_user) { FactoryGirl.build(:user) }
-			before { signup(new_user)	}
 
 			it "should create a user" do
-				expect { click_button submit }.to change(User, :count).by(1)
+				expect { sign_up(new_user) }.to change(User, :count).by(1)
 			end
 
 			describe "after saving the user" do
-				before { click_button submit }
-
-				it { is_expected.to have_title(new_user.name) }
-				it { is_expected.to have_selector('div.alert.alert-success', text: 'Welcome') }
-			end
-
-			describe "after saving the user" do
-				before { click_button submit }
-
-				it { should have_link('Sign out') }
-				it { should have_title(new_user.name) }
-				it { should have_selector('div.alert.alert-success', text: 'Welcome') }
+				before { sign_up new_user }
+				it { should have_link('Sign in') }
+				it { is_expected.to have_selector('div.alert.alert-info', text: 'activate your account') }
 			end
 		end
 
@@ -155,7 +143,7 @@ describe "User pages" do
 					password_confirmation: user.password } }
 				end
 				before do
-					sign_in user, no_capybara: true
+					sign_in user
 					patch user_path(user), params
 				end
 				specify { expect(user.reload).not_to be_admin }

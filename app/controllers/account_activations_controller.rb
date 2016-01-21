@@ -1,0 +1,18 @@
+class AccountActivationsController < ApplicationController
+
+	def edit
+		user = User.find_by(email: params[:email])
+		if user && !user.activated? && user.activation_token_valid?(params[:id])
+			user.activate
+			sign_in user, false
+			flash[:success] = "Account activated!"
+			redirect_to user
+		else
+			flash[:danger] = "Invalid activation link"
+			redirect_to root_url
+		end
+	end
+
+	private
+	# Before filters
+end
