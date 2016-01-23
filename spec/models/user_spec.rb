@@ -15,11 +15,15 @@ describe User do
 	it { is_expected.to respond_to(:password) }
 	it { is_expected.to respond_to(:password_confirmation) }
 	it { is_expected.to respond_to(:authenticate) }
-	it { is_expected.to respond_to(:remember_token) }
+	it { is_expected.to respond_to(:remember_digest) }
 	it { should respond_to(:admin) }
 
 	it { should be_valid }
 	it { should_not be_admin }
+
+	describe '#authenticated?' do
+		it { should_not be_authenticated(:remember, '') }
+	end
 
 	describe "with admin attribute set to 'true'" do
 		before do
@@ -122,9 +126,9 @@ describe User do
 
 		describe "remember token" do
 			before { @user.save }
-			let(:remember_token){ @user.remember_token}
+			let(:remember_digest){ @user.remember_digest}
 			it "should not be empty" do
-				expect(remember_token).not_to be_empty
+				expect(remember_digest).not_to be_empty
 			end
 		end
 	end

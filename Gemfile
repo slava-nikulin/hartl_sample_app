@@ -36,7 +36,14 @@ gem 'faker', '~> 1.6', '>= 1.6.1'
 gem 'will_paginate', '~> 3.1'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
 
-group :development, :test do
+group :development do
+	
+end
+
+group :test do
+	gem 'factory_girl_rails', '~> 4.5'
+	gem 'cucumber-rails', '~> 1.4', '>= 1.4.2'
+	gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
 	gem 'test-unit'
 	gem 'rspec-rails', '~> 3.4'
 	gem 'byebug'
@@ -48,12 +55,7 @@ group :development, :test do
 	gem 'childprocess', '~> 0.5.8'
 	gem 'selenium-webdriver', '~> 2.48', '>= 2.48.1'
 	gem 'capybara', '~> 2.5'
-end
-
-group :test do
-	gem 'factory_girl_rails', '~> 4.5'
-	gem 'cucumber-rails', '~> 1.4', '>= 1.4.2'
-	gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
+	gem 'rspec-html-matchers', '~> 0.7.0'
 end
 
 group :doc do

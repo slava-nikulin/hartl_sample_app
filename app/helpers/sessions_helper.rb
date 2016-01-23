@@ -6,7 +6,7 @@ module SessionsHelper
 		elsif
 			cookies.signed[:remember_token] = remember_token
 		end
-		user.update_attribute(:remember_token, User.encrypt(remember_token))
+		user.update_attribute(:remember_digest, User.encrypt(remember_token))
 		self.current_user = user
 		session[:a] = "123"
 	end
@@ -17,7 +17,7 @@ module SessionsHelper
 
 	def current_user
 		remember_token = User.encrypt(cookies.signed[:remember_token])
-		@current_user ||= User.find_by(remember_token: remember_token)
+		@current_user ||= User.find_by(remember_digest: remember_token)
 	end
 
 	def signed_in?
@@ -25,7 +25,7 @@ module SessionsHelper
 	end
 
 	def sign_out
-		current_user.update_attribute(:remember_token, User.encrypt(User.new_token))
+		current_user.update_attribute(:remember_digest, User.encrypt(User.new_token))
 		cookies.delete(:remember_token)
 		self.current_user = nil
 	end

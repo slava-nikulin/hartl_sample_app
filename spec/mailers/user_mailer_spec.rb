@@ -17,16 +17,19 @@ describe UserMailer, type: :mailer do
   end
 
   describe "password_reset" do
-    let(:mail) { UserMailer.password_reset }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:mail) { 
+      user.create_reset_digest
+      UserMailer.password_reset(user) }
 
     it "renders the headers" do
       expect(mail.subject).to eq("Password reset")
-      expect(mail.to).to eq(["to@example.org"])
+      expect(mail.to).to eq([user.email])
       expect(mail.from).to eq(["noreply@example.com"])
     end
 
     it "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
+      expect(mail.body.encoded).to have_link("Reset password", edit_password_reset_url(user.activation_token))
     end
   end
 
