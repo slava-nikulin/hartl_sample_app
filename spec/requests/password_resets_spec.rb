@@ -5,28 +5,45 @@ describe "PasswordResets" do
 
 	let(:forgetful_user) { FactoryGirl.create(:user) }
 	before { ActionMailer::Base.deliveries.clear }
-	describe "post /password_resets_path with invalid email" do
-		before {
-			visit new_password_reset_path
-			fill_in "Email", with: ""
-			click_button "Submit" 
-		}
-		it {should have_error_message("Email address not found")}
-	end
 
-	describe "post /password_resets_path with valid email" do
-		before {
-			visit new_password_reset_path
-			fill_in "Email", with: forgetful_user.email
-			click_button "Submit" 
-		}
-		it { forgetful_user.reset_digest.should_not be eq(forgetful_user.reload.reset_digest) }
-		it { ActionMailer::Base.deliveries.size.should eq(1)}
-		it { is_expected.to have_selector('div.alert.alert-info') }
-		it "should redirect to some other page" do
-			expect(page.current_url).to eq root_url
+	describe "post /password_resets_path" do 
+		describe "with invalid email" do
+			before {
+				visit new_password_reset_path
+				fill_in "Email", with: ""
+				click_button "Submit" 
+			}
+			it {should have_error_message("Email address not found")}
 		end
-	end	
+
+		describe "with valid email" do
+			before {
+				visit new_password_reset_path
+				fill_in "Email", with: forgetful_user.email
+				click_button "Submit" 
+			}
+			it { forgetful_user.reset_digest.should_not be eq(forgetful_user.reload.reset_digest) }
+			it { ActionMailer::Base.deliveries.size.should eq(1)}
+			it { is_expected.to have_selector('div.alert.alert-info') }
+			it "should redirect to some other page" do
+				expect(page.current_url).to eq root_url
+			end
+		end	
+
+		describe "with expired token" do 
+			before do
+				post password_resets_path, email: forgetful_user.email
+				user = assigns(:user)
+				user.update_attribute(:reset_sent_at, 3.hours.ago)
+				patch password_reset_path(user.reset_token),
+				email: user.email,
+				user: { password:              "foobar",
+					password_confirmation: "foobar" }
+			end
+
+			specify { expect(response).to redirect_to new_password_reset_url }
+		end
+	end
 
 	describe "reset form" do
 		before { 
