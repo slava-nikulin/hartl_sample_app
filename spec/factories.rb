@@ -19,4 +19,9 @@ FactoryGirl.define do
     activated true
     activated_at Time.zone.now
   end
+
+  factory :micropost do
+    content "Lorem ipsum"
+    user
+  end
 end
