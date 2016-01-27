@@ -47,7 +47,6 @@ end
 
 group :test do
 	gem 'factory_girl_rails', '~> 4.5'
-	gem 'cucumber-rails', '~> 1.4', '>= 1.4.2'
 	gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
 	gem 'test-unit'
 	gem 'rspec-rails', '~> 3.4'

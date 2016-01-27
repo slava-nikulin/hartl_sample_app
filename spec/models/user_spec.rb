@@ -18,9 +18,38 @@ describe User do
 	it { is_expected.to respond_to(:remember_digest) }
 	it { should respond_to(:admin) }
 	it { should respond_to(:microposts) }
+	it { should respond_to(:feed) }
+	it { should respond_to(:active_relationships) }
+	it { should respond_to(:followed_users) }
+	it { should respond_to(:following?) }
+	it { should respond_to(:follow!) }
+	it { should respond_to(:passive_relationships ) }
+	it { should respond_to(:followers) }
 
 	it { should be_valid }
 	it { should_not be_admin }
+
+	describe "following" do
+		let(:other_user) { FactoryGirl.create(:user) }
+		before do
+			@user.save
+			@user.follow!(other_user)
+		end
+
+		it { should be_following(other_user) }
+		specify { @user.followed_users.should include(other_user) }
+
+		describe "followed user" do
+			specify{ other_user.followers.should include(@user) }
+		end
+
+		describe "and unfollowing" do
+			before { @user.unfollow!(other_user) }
+
+			it { should_not be_following(other_user) }
+			specify { @user.followed_users.should_not include(other_user) }
+		end
+	end
 
 	describe '#authenticated?' do
 		it { should_not be_authenticated(:remember, '') }
@@ -157,13 +186,20 @@ describe User do
 			end
 
 			describe "status" do
-				let(:unfollowed_post) do
-					FactoryGirl.create(:micropost, user: FactoryGirl.create(:user))
+				subject { @user.feed.pluck(:id) }
+				let(:unfollowed_post) { FactoryGirl.create(:micropost, user: FactoryGirl.create(:user)) }
+				let(:followed_user) { FactoryGirl.create(:user) }
+
+				before do
+					@user.follow!(followed_user)
+					3.times { followed_user.microposts.create!(content: "Lorem ipsum") }
 				end
 
-				it {expect(@user.feed).to include(newer_micropost)}
-				it {expect(@user.feed).to include(older_micropost)}
-				it {expect(@user.feed).to_not include(unfollowed_post)}
+				it { is_expected.to include(newer_micropost.id) }
+				it { is_expected.to include(older_micropost.id) }
+				it { is_expected.to_not include(unfollowed_post.id) }
+
+				it { is_expected.to include(*followed_user.microposts.pluck(:id)) }
 			end
 		end
 	end
