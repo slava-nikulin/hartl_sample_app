@@ -5,7 +5,7 @@ if Rails.env.production?
 		config.dropbox_access_token = ENV["ACCESS_TOKEN"]
 		config.dropbox_access_token_secret = ENV["ACCESS_TOKEN_SECRET"]
 		config.dropbox_user_id = ENV["USER_ID"]
-		config.dropbox_access_type = "dropbox"
+		config.dropbox_access_type = "app_folder"
 	end
 elsif Rails.env.test?
 	CarrierWave.configure do |config|

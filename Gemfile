@@ -36,11 +36,8 @@ gem 'faker', '~> 1.6', '>= 1.6.1'
 gem 'will_paginate', '~> 3.1'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
 
-
-gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 4.3', '>= 4.3.6'
-gem 'fog', '~> 1.37'
-gem 'carrierwave-dropbox'
+gem 'carrierwave-dropbox', '~> 1.2', '>= 1.2.1'
 
 group :development, :test do
   gem 'byebug',      '3.4.0'
