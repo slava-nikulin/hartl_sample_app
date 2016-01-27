@@ -42,8 +42,10 @@ gem 'mini_magick', '~> 4.3', '>= 4.3.6'
 gem 'fog', '~> 1.37'
 gem 'carrierwave-dropbox'
 
-group :development do
-	
+group :development, :test do
+  gem 'byebug',      '3.4.0'
+  gem 'web-console', '2.0.0.beta3'
+  gem 'spring',      '1.1.3'
 end
 
 group :test do
@@ -52,7 +54,6 @@ group :test do
 	gem 'database_cleaner', '~> 1.5', '>= 1.5.1'
 	gem 'test-unit'
 	gem 'rspec-rails', '~> 3.4'
-	gem 'byebug'
 	gem 'spork', github: 'sporkrb/spork'
 	gem 'spork-rails', '~> 4.0'
 	gem 'guard', '~> 2.13'

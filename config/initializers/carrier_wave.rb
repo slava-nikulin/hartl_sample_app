@@ -7,4 +7,8 @@ if Rails.env.production?
 		config.dropbox_user_id = ENV["USER_ID"]
 		config.dropbox_access_type = "dropbox"
 	end
+elsif Rails.env.test?
+	CarrierWave.configure do |config|
+		config.enable_processing = false
+	end	
 end

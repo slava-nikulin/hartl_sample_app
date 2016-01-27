@@ -219,3 +219,19 @@ span.picture {
     border: 0;
   }
 }
+
+.zero-padding-left{
+  padding-left: 0
+}
+
+.vertical-center{
+  margin: auto 0
+}
+
+.flex-row{
+  display: flex
+}
+
+.symbols-counter{
+  color: $gray-light;
+}

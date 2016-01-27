@@ -3,18 +3,30 @@
 <div class="field">
 	<%= f.text_area :content, placeholder: "Compose new micropost..." %>
 </div>
-<%= f.submit "Post", class: "btn btn-large btn-primary" %>
-<span class="picture">
-	<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-</span>
+<div class="show-grid flex-row">
+	<div class="col-md-2 zero-padding-left"><%= f.submit "Post", class: "btn btn-large btn-primary" %></div>
+	<div class="col-md-2 vertical-center symbols-counter zero-padding-left">140</div>
+</div>
+<div class="show-grid">
+	<div class="col-md-12 zero-padding-left">
+		<span class="picture">
+			<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+		</span>
+	</div>
+</div>
+
 <% end %>
 
 
 <script type="text/javascript">
-	$('#micropost_picture').bind('change', function() {
+	$('#micropost_picture').on('change', function() {
 		var size_in_megabytes = this.files[0].size/1024/1024;
 		if (size_in_megabytes > 5) {
 			alert('Maximum file size is 5MB. Please choose a smaller file.');
 		}
 	});
+
+	$('#micropost_content').on("keyup", function() {
+		$('.symbols-counter').html(140 - $(this).val().length)
+	})
 </script>
