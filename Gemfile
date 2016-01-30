@@ -33,6 +33,7 @@ gem 'faker', '~> 1.6', '>= 1.6.1'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'responders', '~> 2.1', '>= 2.1.1'
 gem 'will_paginate', '~> 3.1'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
 
@@ -40,9 +41,9 @@ gem 'mini_magick', '~> 4.3', '>= 4.3.6'
 gem 'carrierwave-dropbox', '~> 1.2', '>= 1.2.1'
 
 group :development, :test do
-  gem 'byebug',      '3.4.0'
-  gem 'web-console', '2.0.0.beta3'
-  gem 'spring',      '1.1.3'
+	gem 'byebug',      '3.4.0'
+	gem 'web-console', '2.0.0.beta3'
+	gem 'spring',      '1.1.3'
 end
 
 group :test do
@@ -67,4 +68,5 @@ end
 
 group :production do
 	gem 'rails_12factor', '0.0.2'
+	gem 'puma', '~> 2.15', '>= 2.15.3'
 end

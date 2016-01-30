@@ -73,6 +73,15 @@ class User < ActiveRecord::Base
 		self.active_relationships.find_by(followed_id: other_user.id).destroy!
 	end
 
+	def remember
+		self.remember_token = User.new_token
+		update_attribute(:remember_digest, User.digest(remember_token))
+	end
+
+	def forget
+		update_attribute(:remember_digest, nil)
+	end
+
 	private
 
 	def create_remember_digest

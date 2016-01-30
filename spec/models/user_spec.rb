@@ -202,4 +202,20 @@ describe User do
 				it { is_expected.to include(*followed_user.microposts.pluck(:id)) }
 			end
 		end
+
+		describe "relationships associations" do
+			let!(:user1) { FactoryGirl.create(:user) }
+			let!(:user2) { FactoryGirl.create(:user) }
+			before do 
+				@user.save 
+				user1.follow!(@user)
+				@user.follow!(user2)
+			end
+
+			it "should destroy associated relationships" do
+				@user.destroy
+				expect(user1.followed_users).to be_empty
+				expect(user2.followers).to be_empty
+			end
+		end
 	end
